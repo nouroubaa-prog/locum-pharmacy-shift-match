@@ -10,33 +10,236 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as ShiftsIndexRouteImport } from './routes/shifts.index'
+import { Route as ShiftsShiftIdRouteImport } from './routes/shifts.$shiftId'
+import { Route as AuthenticatedEmployerIndexRouteImport } from './routes/_authenticated/employer.index'
+import { Route as AuthenticatedEmployerPharmacyRouteImport } from './routes/_authenticated/employer.pharmacy'
+import { Route as AuthenticatedLocumIndexRouteImport } from './routes/_authenticated/locum.index'
+import { Route as AuthenticatedLocumProfileRouteImport } from './routes/_authenticated/locum.profile'
+import { Route as AuthenticatedEmployerShiftsNewRouteImport } from './routes/_authenticated/employer.shifts.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ShiftsIndexRoute = ShiftsIndexRouteImport.update({
+  id: '/shifts/',
+  path: '/shifts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShiftsShiftIdRoute = ShiftsShiftIdRouteImport.update({
+  id: '/shifts/$shiftId',
+  path: '/shifts/$shiftId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedEmployerIndexRoute =
+  AuthenticatedEmployerIndexRouteImport.update({
+    id: '/employer/',
+    path: '/employer/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEmployerPharmacyRoute =
+  AuthenticatedEmployerPharmacyRouteImport.update({
+    id: '/employer/pharmacy',
+    path: '/employer/pharmacy',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLocumIndexRoute = AuthenticatedLocumIndexRouteImport.update({
+  id: '/locum/',
+  path: '/locum/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLocumProfileRoute =
+  AuthenticatedLocumProfileRouteImport.update({
+    id: '/locum/profile',
+    path: '/locum/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEmployerShiftsNewRoute =
+  AuthenticatedEmployerShiftsNewRouteImport.update({
+    id: '/employer/shifts/new',
+    path: '/employer/shifts/new',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/shifts/$shiftId': typeof ShiftsShiftIdRoute
+  '/shifts/': typeof ShiftsIndexRoute
+  '/employer/pharmacy': typeof AuthenticatedEmployerPharmacyRoute
+  '/locum/profile': typeof AuthenticatedLocumProfileRoute
+  '/employer/': typeof AuthenticatedEmployerIndexRoute
+  '/locum/': typeof AuthenticatedLocumIndexRoute
+  '/employer/shifts/new': typeof AuthenticatedEmployerShiftsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/shifts/$shiftId': typeof ShiftsShiftIdRoute
+  '/shifts': typeof ShiftsIndexRoute
+  '/employer/pharmacy': typeof AuthenticatedEmployerPharmacyRoute
+  '/locum/profile': typeof AuthenticatedLocumProfileRoute
+  '/employer': typeof AuthenticatedEmployerIndexRoute
+  '/locum': typeof AuthenticatedLocumIndexRoute
+  '/employer/shifts/new': typeof AuthenticatedEmployerShiftsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/shifts/$shiftId': typeof ShiftsShiftIdRoute
+  '/shifts/': typeof ShiftsIndexRoute
+  '/_authenticated/employer/pharmacy': typeof AuthenticatedEmployerPharmacyRoute
+  '/_authenticated/locum/profile': typeof AuthenticatedLocumProfileRoute
+  '/_authenticated/employer/': typeof AuthenticatedEmployerIndexRoute
+  '/_authenticated/locum/': typeof AuthenticatedLocumIndexRoute
+  '/_authenticated/employer/shifts/new': typeof AuthenticatedEmployerShiftsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/privacy'
+    | '/reset-password'
+    | '/terms'
+    | '/admin'
+    | '/dashboard'
+    | '/notifications'
+    | '/onboarding'
+    | '/shifts/$shiftId'
+    | '/shifts/'
+    | '/employer/pharmacy'
+    | '/locum/profile'
+    | '/employer/'
+    | '/locum/'
+    | '/employer/shifts/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/privacy'
+    | '/reset-password'
+    | '/terms'
+    | '/admin'
+    | '/dashboard'
+    | '/notifications'
+    | '/onboarding'
+    | '/shifts/$shiftId'
+    | '/shifts'
+    | '/employer/pharmacy'
+    | '/locum/profile'
+    | '/employer'
+    | '/locum'
+    | '/employer/shifts/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/privacy'
+    | '/reset-password'
+    | '/terms'
+    | '/_authenticated/admin'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/notifications'
+    | '/_authenticated/onboarding'
+    | '/shifts/$shiftId'
+    | '/shifts/'
+    | '/_authenticated/employer/pharmacy'
+    | '/_authenticated/locum/profile'
+    | '/_authenticated/employer/'
+    | '/_authenticated/locum/'
+    | '/_authenticated/employer/shifts/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  TermsRoute: typeof TermsRoute
+  ShiftsShiftIdRoute: typeof ShiftsShiftIdRoute
+  ShiftsIndexRoute: typeof ShiftsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +251,157 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/shifts/': {
+      id: '/shifts/'
+      path: '/shifts'
+      fullPath: '/shifts/'
+      preLoaderRoute: typeof ShiftsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shifts/$shiftId': {
+      id: '/shifts/$shiftId'
+      path: '/shifts/$shiftId'
+      fullPath: '/shifts/$shiftId'
+      preLoaderRoute: typeof ShiftsShiftIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/employer/': {
+      id: '/_authenticated/employer/'
+      path: '/employer'
+      fullPath: '/employer/'
+      preLoaderRoute: typeof AuthenticatedEmployerIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/employer/pharmacy': {
+      id: '/_authenticated/employer/pharmacy'
+      path: '/employer/pharmacy'
+      fullPath: '/employer/pharmacy'
+      preLoaderRoute: typeof AuthenticatedEmployerPharmacyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/locum/': {
+      id: '/_authenticated/locum/'
+      path: '/locum'
+      fullPath: '/locum/'
+      preLoaderRoute: typeof AuthenticatedLocumIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/locum/profile': {
+      id: '/_authenticated/locum/profile'
+      path: '/locum/profile'
+      fullPath: '/locum/profile'
+      preLoaderRoute: typeof AuthenticatedLocumProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/employer/shifts/new': {
+      id: '/_authenticated/employer/shifts/new'
+      path: '/employer/shifts/new'
+      fullPath: '/employer/shifts/new'
+      preLoaderRoute: typeof AuthenticatedEmployerShiftsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedEmployerPharmacyRoute: typeof AuthenticatedEmployerPharmacyRoute
+  AuthenticatedLocumProfileRoute: typeof AuthenticatedLocumProfileRoute
+  AuthenticatedEmployerIndexRoute: typeof AuthenticatedEmployerIndexRoute
+  AuthenticatedLocumIndexRoute: typeof AuthenticatedLocumIndexRoute
+  AuthenticatedEmployerShiftsNewRoute: typeof AuthenticatedEmployerShiftsNewRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedEmployerPharmacyRoute: AuthenticatedEmployerPharmacyRoute,
+  AuthenticatedLocumProfileRoute: AuthenticatedLocumProfileRoute,
+  AuthenticatedEmployerIndexRoute: AuthenticatedEmployerIndexRoute,
+  AuthenticatedLocumIndexRoute: AuthenticatedLocumIndexRoute,
+  AuthenticatedEmployerShiftsNewRoute: AuthenticatedEmployerShiftsNewRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  TermsRoute: TermsRoute,
+  ShiftsShiftIdRoute: ShiftsShiftIdRoute,
+  ShiftsIndexRoute: ShiftsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
