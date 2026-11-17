@@ -14,7 +14,7 @@ export function currencySymbol(c: Currency) {
 }
 
 export function formatDate(date: string, opts: Intl.DateTimeFormatOptions = {}): string {
-  const [y, m, d] = date.split("-").map(Number);
+  const [y = 1970, m = 1, d = 1] = date.split("-").map(Number);
   return new Intl.DateTimeFormat("en-IE", {
     weekday: "short",
     day: "numeric",
@@ -40,7 +40,7 @@ export function formatTime(t: string): string {
 
 export function shiftHours(start: string, end: string): number {
   const toMin = (t: string) => {
-    const [h, m] = t.split(":").map(Number);
+    const [h = 0, m = 0] = t.split(":").map(Number);
     return h * 60 + m;
   };
   return Math.max(0, (toMin(end) - toMin(start)) / 60);

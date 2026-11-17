@@ -2,7 +2,12 @@ import { distanceKm } from "./locations";
 
 // Transparent, deterministic match score. No AI, no hidden factors.
 // It is guidance only and never decides eligibility.
-export const MATCH_WEIGHTS = { location: 35, availability: 25, rate: 20, registration: 20 } as const;
+export const MATCH_WEIGHTS = {
+  location: 35,
+  availability: 25,
+  rate: 20,
+  registration: 20,
+} as const;
 
 export interface MatchLocum {
   base_lat: number | null;
@@ -42,7 +47,7 @@ export interface MatchResult {
 
 /** Weekday for a YYYY-MM-DD date, computed in UTC so it never shifts with the viewer's timezone. */
 export function weekdayOf(date: string): number {
-  const [y, m, d] = date.split("-").map(Number);
+  const [y = 1970, m = 1, d = 1] = date.split("-").map(Number);
   return new Date(Date.UTC(y, m - 1, d)).getUTCDay();
 }
 
@@ -52,7 +57,13 @@ export function computeMatch(locum: MatchLocum, shift: MatchShift): MatchResult 
   // Location (35)
   let dist: number | null = null;
   if (locum.base_lat == null || locum.base_lng == null || shift.lat == null || shift.lng == null) {
-    factors.push({ key: "location", label: "Location", points: 0, max: 35, detail: "Location unknown" });
+    factors.push({
+      key: "location",
+      label: "Location",
+      points: 0,
+      max: 35,
+      detail: "Location unknown",
+    });
   } else {
     dist = distanceKm(locum.base_lat, locum.base_lng, shift.lat, shift.lng);
     const radius = Math.max(1, locum.radius_km);
@@ -87,20 +98,52 @@ export function computeMatch(locum: MatchLocum, shift: MatchShift): MatchResult 
 
   // Rate (20)
   if (locum.preferred_rate == null || locum.preferred_rate <= 0) {
-    factors.push({ key: "rate", label: "Rate", points: 10, max: 20, detail: "No preferred rate set" });
+    factors.push({
+      key: "rate",
+      label: "Rate",
+      points: 10,
+      max: 20,
+      detail: "No preferred rate set",
+    });
   } else if (locum.preferred_currency !== shift.currency) {
-    factors.push({ key: "rate", label: "Rate", points: 0, max: 20, detail: `Paid in ${shift.currency}, you prefer ${locum.preferred_currency}` });
+    factors.push({
+      key: "rate",
+      label: "Rate",
+      points: 0,
+      max: 20,
+      detail: `Paid in ${shift.currency}, you prefer ${locum.preferred_currency}`,
+    });
   } else if (shift.hourly_rate >= locum.preferred_rate) {
-    factors.push({ key: "rate", label: "Rate", points: 20, max: 20, detail: "Meets or beats your preferred rate" });
+    factors.push({
+      key: "rate",
+      label: "Rate",
+      points: 20,
+      max: 20,
+      detail: "Meets or beats your preferred rate",
+    });
   } else if (shift.hourly_rate >= locum.preferred_rate * 0.9) {
-    factors.push({ key: "rate", label: "Rate", points: 10, max: 20, detail: "Within 10% of your preferred rate" });
+    factors.push({
+      key: "rate",
+      label: "Rate",
+      points: 10,
+      max: 20,
+      detail: "Within 10% of your preferred rate",
+    });
   } else {
-    factors.push({ key: "rate", label: "Rate", points: 0, max: 20, detail: "Below your preferred rate" });
+    factors.push({
+      key: "rate",
+      label: "Rate",
+      points: 0,
+      max: 20,
+      detail: "Below your preferred rate",
+    });
   }
 
   // Registration (20)
   const hasReg =
-    shift.required_registration === "PSI" ? !!locum.psi_number?.trim() : !!locum.gphc_number?.trim();
+    shift.required_registration === "PSI"
+      ? !!locum.psi_number?.trim()
+      : !!locum.gphc_number?.trim();
   factors.push({
     key: "registration",
     label: "Registration",

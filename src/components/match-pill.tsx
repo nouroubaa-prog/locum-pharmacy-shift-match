@@ -14,7 +14,11 @@ export function MatchPill({ match, className }: { match: MatchResult; className?
           : "bg-muted text-muted-foreground";
   return (
     <span
-      className={cn("inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold", tone, className)}
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold",
+        tone,
+        className,
+      )}
       title={match.factors.map((f) => `${f.label}: ${f.points}/${f.max} — ${f.detail}`).join("\n")}
     >
       <Sparkles className="h-3 w-3" aria-hidden />
@@ -35,7 +39,10 @@ export function MatchBreakdown({ match }: { match: MatchResult }) {
             </span>
           </div>
           <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted" aria-hidden>
-            <div className="h-full rounded-full bg-primary" style={{ width: `${(f.points / f.max) * 100}%` }} />
+            <div
+              className="h-full rounded-full bg-primary"
+              style={{ width: `${(f.points / f.max) * 100}%` }}
+            />
           </div>
           <p className="mt-1 text-xs text-muted-foreground">{f.detail}</p>
         </div>

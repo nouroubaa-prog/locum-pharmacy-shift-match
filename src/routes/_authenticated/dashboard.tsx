@@ -3,7 +3,9 @@ import { useAuth, dashboardPathFor } from "@/lib/auth";
 import { PageSpinner } from "@/components/states";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — Locum4U" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [{ title: "Dashboard — Locum4U" }, { name: "robots", content: "noindex" }],
+  }),
   component: Dashboard,
 });
 

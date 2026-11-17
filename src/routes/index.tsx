@@ -1,6 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Building2, CheckCircle2, Lock, Percent, Stethoscope, MapPinned } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  CheckCircle2,
+  Lock,
+  Percent,
+  Stethoscope,
+  MapPinned,
+} from "lucide-react";
 import heroImg from "@/assets/hero-pharmacist.jpg";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -21,7 +29,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Locum4U — Pharmacy locum shifts, booked direct" },
       {
         property: "og:description",
-        content: "Pharmacies post locum shifts and pharmacists apply directly — no agency commission.",
+        content:
+          "Pharmacies post locum shifts and pharmacists apply directly — no agency commission.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -67,7 +76,8 @@ function Index() {
         <div className="container-app grid items-center gap-10 py-10 md:grid-cols-[1.1fr_0.9fr] md:py-20">
           <div className="animate-rise">
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-semibold text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-success" /> Now live in Ireland · UK ready
+              <span className="h-1.5 w-1.5 rounded-full bg-success" /> Now live in Ireland · UK
+              ready
             </p>
             <h1 className="text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl">
               Locum shifts,
@@ -75,8 +85,8 @@ function Index() {
               <span className="text-primary">booked direct.</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-              Pharmacies post shifts. Pharmacists apply. You talk to each other — no agency in the middle and no
-              commission on either side.
+              Pharmacies post shifts. Pharmacists apply. You talk to each other — no agency in the
+              middle and no commission on either side.
             </p>
 
             {user ? (
@@ -91,7 +101,11 @@ function Index() {
                 </Button>
               </div>
             ) : (
-              <div className="mt-8 grid gap-3 sm:grid-cols-2" role="group" aria-label="Choose how you'll use Locum4U">
+              <div
+                className="mt-8 grid gap-3 sm:grid-cols-2"
+                role="group"
+                aria-label="Choose how you'll use Locum4U"
+              >
                 <Link
                   to="/auth"
                   search={{ mode: "signup", role: "employer" }}
@@ -102,7 +116,9 @@ function Index() {
                   </span>
                   <span>
                     <span className="block font-semibold">I'm an employer</span>
-                    <span className="block text-sm text-muted-foreground">Post shifts for my pharmacy</span>
+                    <span className="block text-sm text-muted-foreground">
+                      Post shifts for my pharmacy
+                    </span>
                   </span>
                 </Link>
                 <Link
@@ -115,7 +131,9 @@ function Index() {
                   </span>
                   <span>
                     <span className="block font-semibold">I'm a locum</span>
-                    <span className="block text-sm text-muted-foreground">Find and apply for shifts</span>
+                    <span className="block text-sm text-muted-foreground">
+                      Find and apply for shifts
+                    </span>
                   </span>
                 </Link>
               </div>
@@ -123,11 +141,18 @@ function Index() {
             {!user && (
               <p className="mt-4 text-sm text-muted-foreground">
                 Already registered?{" "}
-                <Link to="/auth" search={{ mode: "signin" }} className="font-semibold text-primary underline-offset-4 hover:underline">
+                <Link
+                  to="/auth"
+                  search={{ mode: "signin" }}
+                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                >
                   Sign in
                 </Link>{" "}
                 ·{" "}
-                <Link to="/shifts" className="font-semibold text-primary underline-offset-4 hover:underline">
+                <Link
+                  to="/shifts"
+                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                >
                   Browse shifts first
                 </Link>
               </p>
@@ -142,9 +167,13 @@ function Index() {
               className="aspect-[8/9] w-full rounded-[2rem] object-cover shadow-lift"
             />
             <div className="surface absolute -bottom-6 -left-6 w-64 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Agency fee</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Agency fee
+              </p>
               <p className="font-display text-3xl font-extrabold text-primary">€0.00</p>
-              <p className="text-xs text-muted-foreground">Rates are agreed between you, directly.</p>
+              <p className="text-xs text-muted-foreground">
+                Rates are agreed between you, directly.
+              </p>
             </div>
           </div>
         </div>
@@ -183,7 +212,9 @@ function Index() {
       <section className="container-app pb-6">
         <div className="mb-4 flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Open now</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+              Open now
+            </p>
             <h2 className="text-2xl font-bold">Upcoming shifts</h2>
           </div>
           <Button variant="link" asChild>
@@ -201,16 +232,32 @@ function Index() {
           <div>
             <h2 className="text-2xl font-bold sm:text-3xl">For pharmacies</h2>
             <ul className="mt-4 space-y-3">
-              {["Create your pharmacy profile", "Post a shift with rate, times and requirements", "Review applicants and their self-declared registration", "Mark the shift filled — done"].map((t) => (
-                <li key={t} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-highlight" aria-hidden />{t}</li>
+              {[
+                "Create your pharmacy profile",
+                "Post a shift with rate, times and requirements",
+                "Review applicants and their self-declared registration",
+                "Mark the shift filled — done",
+              ].map((t) => (
+                <li key={t} className="flex gap-2">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-highlight" aria-hidden />
+                  {t}
+                </li>
               ))}
             </ul>
           </div>
           <div>
             <h2 className="text-2xl font-bold sm:text-3xl">For locums</h2>
             <ul className="mt-4 space-y-3">
-              {["Set your base town, radius, days and preferred rate", "Filter shifts by location, date, rate and registration", "Apply in one tap — contact details unlock instantly", "Track every application in one place"].map((t) => (
-                <li key={t} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-highlight" aria-hidden />{t}</li>
+              {[
+                "Set your base town, radius, days and preferred rate",
+                "Filter shifts by location, date, rate and registration",
+                "Apply in one tap — contact details unlock instantly",
+                "Track every application in one place",
+              ].map((t) => (
+                <li key={t} className="flex gap-2">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-highlight" aria-hidden />
+                  {t}
+                </li>
               ))}
             </ul>
           </div>
@@ -219,8 +266,8 @@ function Index() {
           <ResponsibilityNotice />
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          Locum4U is a listings marketplace only. It does not handle payments, payroll, timesheets, contracts or HR
-          documents, and does not provide clinical services.
+          Locum4U is a listings marketplace only. It does not handle payments, payroll, timesheets,
+          contracts or HR documents, and does not provide clinical services.
         </p>
       </section>
     </div>

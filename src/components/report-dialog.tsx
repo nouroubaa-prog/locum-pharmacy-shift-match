@@ -2,7 +2,15 @@ import { useState } from "react";
 import { Flag } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -57,23 +65,39 @@ export function ReportDialog({ shiftId, userId }: { shiftId: string; userId: str
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Report this listing</DialogTitle>
-          <DialogDescription>Reports go to the Locum4U moderation team. The employer won't see who reported it.</DialogDescription>
+          <DialogDescription>
+            Reports go to the Locum4U moderation team. The employer won't see who reported it.
+          </DialogDescription>
         </DialogHeader>
         <RadioGroup value={reason} onValueChange={setReason} className="gap-2">
           {reasons.map((r) => (
             <div key={r.value} className="flex items-center gap-2">
               <RadioGroupItem id={`reason-${r.value}`} value={r.value} />
-              <Label htmlFor={`reason-${r.value}`} className="font-normal">{r.label}</Label>
+              <Label htmlFor={`reason-${r.value}`} className="font-normal">
+                {r.label}
+              </Label>
             </div>
           ))}
         </RadioGroup>
         <div className="space-y-1.5">
-          <Label htmlFor="report-details">Details <span className="font-normal text-muted-foreground">(optional)</span></Label>
-          <Textarea id="report-details" maxLength={1000} value={details} onChange={(e) => setDetails(e.target.value)} placeholder="What's wrong with this listing?" />
+          <Label htmlFor="report-details">
+            Details <span className="font-normal text-muted-foreground">(optional)</span>
+          </Label>
+          <Textarea
+            id="report-details"
+            maxLength={1000}
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            placeholder="What's wrong with this listing?"
+          />
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={submit} disabled={busy}>{busy ? "Sending…" : "Send report"}</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={submit} disabled={busy}>
+            {busy ? "Sending…" : "Send report"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

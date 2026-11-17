@@ -19,7 +19,8 @@ const buttonVariants = cva(
         hero: "bg-primary text-primary-foreground shadow-lift hover:bg-primary/92 hover:-translate-y-px transition-all",
         highlight: "bg-highlight text-highlight-foreground shadow-sm hover:bg-highlight/90",
         soft: "bg-primary-soft text-primary hover:bg-primary-soft/80",
-        "outline-destructive": "border border-destructive/40 bg-background text-destructive hover:bg-destructive-soft",
+        "outline-destructive":
+          "border border-destructive/40 bg-background text-destructive hover:bg-destructive-soft",
       },
       size: {
         default: "h-9 px-4 py-2",

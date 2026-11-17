@@ -10,9 +10,16 @@ export const Route = createFileRoute("/shifts/")({
   head: () => ({
     meta: [
       { title: "Open pharmacy locum shifts — Locum4U" },
-      { name: "description", content: "Browse open locum pharmacist shifts in Ireland and the UK. Apply directly, no agency commission." },
+      {
+        name: "description",
+        content:
+          "Browse open locum pharmacist shifts in Ireland and the UK. Apply directly, no agency commission.",
+      },
       { property: "og:title", content: "Open pharmacy locum shifts — Locum4U" },
-      { property: "og:description", content: "Browse open locum pharmacist shifts in Ireland and the UK." },
+      {
+        property: "og:description",
+        content: "Browse open locum pharmacist shifts in Ireland and the UK.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -39,16 +46,26 @@ function ShiftsPage() {
   });
   return (
     <div className="container-app py-8">
-      <PageHeader eyebrow="Find shifts" title="Open locum shifts" description="Contact details unlock after you apply." />
+      <PageHeader
+        eyebrow="Find shifts"
+        title="Open locum shifts"
+        description="Contact details unlock after you apply."
+      />
       {q.isLoading ? (
         <ListSkeleton rows={4} />
       ) : q.isError ? (
         <ErrorState message="Couldn't load shifts." onRetry={() => q.refetch()} />
       ) : !q.data?.length ? (
-        <EmptyState icon={<SearchX className="h-6 w-6" />} title="No open shifts right now" body="Check back soon." />
+        <EmptyState
+          icon={<SearchX className="h-6 w-6" />}
+          title="No open shifts right now"
+          body="Check back soon."
+        />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
-          {q.data.map((s) => <ShiftCard key={s.id} shift={s} />)}
+          {q.data.map((s) => (
+            <ShiftCard key={s.id} shift={s} />
+          ))}
         </div>
       )}
     </div>

@@ -52,12 +52,27 @@ function ResetPassword() {
       <form onSubmit={submit} className="surface w-full max-w-md space-y-4 p-6">
         <h1 className="text-2xl font-bold">Set a new password</h1>
         {!isRecovery && (
-          <p className="text-sm text-muted-foreground">Open this page from the reset link in your email.</p>
+          <p className="text-sm text-muted-foreground">
+            Open this page from the reset link in your email.
+          </p>
         )}
-        <Field id="new-password" label="New password" error={error ?? undefined} hint="At least 8 characters">
-          <Input id="new-password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Field
+          id="new-password"
+          label="New password"
+          error={error ?? undefined}
+          hint="At least 8 characters"
+        >
+          <Input
+            id="new-password"
+            type="password"
+            autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Field>
-        <Button type="submit" className="w-full" disabled={busy || !isRecovery}>{busy ? "Saving…" : "Update password"}</Button>
+        <Button type="submit" className="w-full" disabled={busy || !isRecovery}>
+          {busy ? "Saving…" : "Update password"}
+        </Button>
       </form>
     </div>
   );

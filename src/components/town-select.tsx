@@ -1,4 +1,10 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { townsFor, type CountryCode } from "@/lib/locations";
 
 export function TownSelect({
@@ -8,15 +14,15 @@ export function TownSelect({
   onChange,
   invalid,
 }: {
-  id?: string;
+  id?: string | undefined;
   country: CountryCode;
   value: string;
   onChange: (town: string) => void;
-  invalid?: boolean;
+  invalid?: boolean | undefined;
 }) {
   const towns = townsFor(country);
   return (
-    <Select value={value || undefined} onValueChange={onChange}>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger id={id} aria-invalid={invalid} className="w-full">
         <SelectValue placeholder="Choose nearest town" />
       </SelectTrigger>

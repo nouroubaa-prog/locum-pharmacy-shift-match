@@ -39,7 +39,10 @@ export function SiteHeader() {
 
   const items: NavItem[] = [{ to: "/shifts", label: "Find shifts" }];
   if (role === "employer") {
-    items.push({ to: "/employer", label: "Dashboard" }, { to: "/employer/shifts/new", label: "Post a shift" });
+    items.push(
+      { to: "/employer", label: "Dashboard" },
+      { to: "/employer/shifts/new", label: "Post a shift" },
+    );
   }
   if (role === "locum") {
     items.push({ to: "/locum", label: "Dashboard" }, { to: "/locum/profile", label: "My profile" });
@@ -62,7 +65,13 @@ export function SiteHeader() {
           <Logo />
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
             {items.map((i) => (
-              <Link key={i.to} to={i.to} className={linkCls} activeProps={{ className: activeCls }} activeOptions={{ exact: i.to !== "/shifts" }}>
+              <Link
+                key={i.to}
+                to={i.to}
+                className={linkCls}
+                activeProps={{ className: activeCls }}
+                activeOptions={{ exact: i.to !== "/shifts" }}
+              >
                 {i.label}
               </Link>
             ))}
@@ -72,16 +81,25 @@ export function SiteHeader() {
           {ready && !user && (
             <>
               <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
-                <Link to="/auth" search={{ mode: "signin" }}>Sign in</Link>
+                <Link to="/auth" search={{ mode: "signin" }}>
+                  Sign in
+                </Link>
               </Button>
               <Button size="sm" asChild>
-                <Link to="/auth" search={{ mode: "signup" }}>Get started</Link>
+                <Link to="/auth" search={{ mode: "signup" }}>
+                  Get started
+                </Link>
               </Button>
             </>
           )}
           {user && (
             <>
-              <Button variant="ghost" size="icon" asChild aria-label={`Notifications${unread.data ? `, ${unread.data} unread` : ""}`}>
+              <Button
+                variant="ghost"
+                size="icon"
+                asChild
+                aria-label={`Notifications${unread.data ? `, ${unread.data} unread` : ""}`}
+              >
                 <Link to="/notifications" className="relative">
                   <Bell />
                   {!!unread.data && (
@@ -93,7 +111,12 @@ export function SiteHeader() {
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" aria-label="Account menu" className="hidden md:inline-flex">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Account menu"
+                    className="hidden md:inline-flex"
+                  >
                     <UserIcon />
                   </Button>
                 </DropdownMenuTrigger>
@@ -107,13 +130,19 @@ export function SiteHeader() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {role === "employer" && (
-                    <DropdownMenuItem asChild><Link to="/employer/pharmacy">Pharmacy profile</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/employer/pharmacy">Pharmacy profile</Link>
+                    </DropdownMenuItem>
                   )}
                   {role === "locum" && (
-                    <DropdownMenuItem asChild><Link to="/locum/profile">Locum profile</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/locum/profile">Locum profile</Link>
+                    </DropdownMenuItem>
                   )}
                   {!role && !isAdmin && (
-                    <DropdownMenuItem asChild><Link to="/onboarding">Finish setup</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/onboarding">Finish setup</Link>
+                    </DropdownMenuItem>
                   )}
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="mr-2 h-4 w-4" /> Sign out
@@ -134,20 +163,41 @@ export function SiteHeader() {
               </SheetHeader>
               <nav className="mt-2 flex flex-col gap-1 px-2" aria-label="Mobile">
                 {items.map((i) => (
-                  <Link key={i.to} to={i.to} onClick={() => setOpen(false)} className={linkCls} activeProps={{ className: activeCls }}>
+                  <Link
+                    key={i.to}
+                    to={i.to}
+                    onClick={() => setOpen(false)}
+                    className={linkCls}
+                    activeProps={{ className: activeCls }}
+                  >
                     {i.label}
                   </Link>
                 ))}
                 {user && (
-                  <Link to="/notifications" onClick={() => setOpen(false)} className={linkCls}>Notifications</Link>
+                  <Link to="/notifications" onClick={() => setOpen(false)} className={linkCls}>
+                    Notifications
+                  </Link>
                 )}
                 <div className="my-2 border-t" />
                 {user ? (
-                  <button className={`${linkCls} text-left`} onClick={() => { setOpen(false); handleSignOut(); }}>
+                  <button
+                    className={`${linkCls} text-left`}
+                    onClick={() => {
+                      setOpen(false);
+                      handleSignOut();
+                    }}
+                  >
                     Sign out
                   </button>
                 ) : (
-                  <Link to="/auth" search={{ mode: "signin" }} onClick={() => setOpen(false)} className={linkCls}>Sign in</Link>
+                  <Link
+                    to="/auth"
+                    search={{ mode: "signin" }}
+                    onClick={() => setOpen(false)}
+                    className={linkCls}
+                  >
+                    Sign in
+                  </Link>
                 )}
               </nav>
             </SheetContent>

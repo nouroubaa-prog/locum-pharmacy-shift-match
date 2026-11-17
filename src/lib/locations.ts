@@ -49,7 +49,13 @@ export const TOWNS: Town[] = [
   { name: "Liverpool", county: "Merseyside", country: "UK", lat: 53.4084, lng: -2.9916 },
   { name: "Leeds", county: "West Yorkshire", country: "UK", lat: 53.8008, lng: -1.5491 },
   { name: "Sheffield", county: "South Yorkshire", country: "UK", lat: 53.3811, lng: -1.4701 },
-  { name: "Newcastle upon Tyne", county: "Tyne and Wear", country: "UK", lat: 54.9783, lng: -1.6178 },
+  {
+    name: "Newcastle upon Tyne",
+    county: "Tyne and Wear",
+    country: "UK",
+    lat: 54.9783,
+    lng: -1.6178,
+  },
   { name: "Nottingham", county: "Nottinghamshire", country: "UK", lat: 52.9548, lng: -1.1581 },
   { name: "Leicester", county: "Leicestershire", country: "UK", lat: 52.6369, lng: -1.1398 },
   { name: "Bristol", county: "Bristol", country: "UK", lat: 51.4545, lng: -2.5879 },
@@ -76,6 +82,7 @@ export function distanceKm(aLat: number, aLng: number, bLat: number, bLng: numbe
   const dLat = toRad(bLat - aLat);
   const dLng = toRad(bLng - aLng);
   const h =
-    Math.sin(dLat / 2) ** 2 + Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLng / 2) ** 2;
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
 }

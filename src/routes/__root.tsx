@@ -87,11 +87,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Locum4U — Pharmacy locum shifts, direct" },
-      { name: "description", content: "Locum4U connects pharmacy employers directly with locum pharmacists in Ireland and the UK. No agency commission." },
+      {
+        name: "description",
+        content:
+          "Locum4U connects pharmacy employers directly with locum pharmacists in Ireland and the UK. No agency commission.",
+      },
       { name: "theme-color", content: "#1f5e55" },
       { property: "og:site_name", content: "Locum4U" },
       { property: "og:title", content: "Locum4U — Pharmacy locum shifts, direct" },
-      { property: "og:description", content: "Pharmacy employers and locum pharmacists connect directly. No agency commission." },
+      {
+        property: "og:description",
+        content: "Pharmacy employers and locum pharmacists connect directly. No agency commission.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -147,7 +154,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-card focus:px-3 focus:py-2">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-card focus:px-3 focus:py-2"
+        >
           Skip to content
         </a>
         <div className="flex min-h-screen flex-col">

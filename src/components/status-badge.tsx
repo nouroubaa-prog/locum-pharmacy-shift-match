@@ -1,7 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import type { ApplicationStatus, ShiftStatus } from "@/lib/types";
 
-const shiftMap: Record<ShiftStatus | "expired", { label: string; variant: "success" | "muted" | "info" | "danger" | "warning" }> = {
+const shiftMap: Record<
+  ShiftStatus | "expired",
+  { label: string; variant: "success" | "muted" | "info" | "danger" | "warning" }
+> = {
   draft: { label: "Draft", variant: "muted" },
   open: { label: "Open", variant: "success" },
   filled: { label: "Filled", variant: "info" },
@@ -15,7 +18,10 @@ export function ShiftStatusBadge({ status, expired }: { status: ShiftStatus; exp
   return <Badge variant={m.variant}>{m.label}</Badge>;
 }
 
-const appMap: Record<ApplicationStatus, { label: string; variant: "success" | "muted" | "info" | "danger" | "warning" | "soft" }> = {
+const appMap: Record<
+  ApplicationStatus,
+  { label: string; variant: "success" | "muted" | "info" | "danger" | "warning" | "soft" }
+> = {
   pending: { label: "Pending", variant: "warning" },
   shortlisted: { label: "Shortlisted", variant: "soft" },
   accepted: { label: "Accepted", variant: "success" },

@@ -26,7 +26,10 @@ export function EmptyState({
 
 export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   return (
-    <div role="alert" className="flex flex-col items-center rounded-xl border border-destructive/30 bg-destructive-soft px-6 py-8 text-center">
+    <div
+      role="alert"
+      className="flex flex-col items-center rounded-xl border border-destructive/30 bg-destructive-soft px-6 py-8 text-center"
+    >
       <AlertTriangle className="mb-2 h-6 w-6 text-destructive" aria-hidden />
       <p className="text-sm font-medium text-destructive">{message}</p>
       {onRetry && (
@@ -71,10 +74,14 @@ export function PageHeader({
     <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow && (
-          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-primary">{eyebrow}</p>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+            {eyebrow}
+          </p>
         )}
         <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>
-        {description && <p className="mt-1 text-sm text-muted-foreground sm:text-base">{description}</p>}
+        {description && (
+          <p className="mt-1 text-sm text-muted-foreground sm:text-base">{description}</p>
+        )}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </div>

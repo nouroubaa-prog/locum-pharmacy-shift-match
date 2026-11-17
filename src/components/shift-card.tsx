@@ -7,7 +7,15 @@ import { MatchPill } from "./match-pill";
 import { DemoBadge } from "./status-badge";
 
 // Public card: never shows employer contact details.
-export function ShiftCard({ shift, match, footer }: { shift: Shift; match?: MatchResult | null; footer?: React.ReactNode }) {
+export function ShiftCard({
+  shift,
+  match,
+  footer,
+}: {
+  shift: Shift;
+  match?: MatchResult | null;
+  footer?: React.ReactNode;
+}) {
   const hours = shiftHours(shift.start_time, shift.end_time);
   return (
     <article className="surface group relative flex flex-col gap-3 p-4 transition-shadow hover:shadow-lift sm:p-5">
@@ -30,7 +38,8 @@ export function ShiftCard({ shift, match, footer }: { shift: Shift; match?: Matc
             <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
             <span className="truncate">
               {shift.town}
-              {shift.county && shift.county !== shift.town ? `, ${shift.county}` : ""} · {shift.country === "IE" ? "Ireland" : "UK"}
+              {shift.county && shift.county !== shift.town ? `, ${shift.county}` : ""} ·{" "}
+              {shift.country === "IE" ? "Ireland" : "UK"}
             </span>
           </p>
         </div>

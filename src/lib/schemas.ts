@@ -48,8 +48,14 @@ export const locumProfileSchema = z
     base_town: z.string().trim().min(1, "Choose your base town").max(80),
     radius_km: z.coerce.number().int().min(1).max(500),
     available_days: z.array(z.number().int().min(0).max(6)).min(1, "Pick at least one day"),
-    available_from: z.string().optional().transform((v) => (v ? v : null)),
-    available_until: z.string().optional().transform((v) => (v ? v : null)),
+    available_from: z
+      .string()
+      .optional()
+      .transform((v) => (v ? v : null)),
+    available_until: z
+      .string()
+      .optional()
+      .transform((v) => (v ? v : null)),
     preferred_rate: z
       .union([z.literal(""), z.coerce.number().min(0).max(500)])
       .optional()
@@ -79,7 +85,10 @@ export const shiftSchema = z
     shift_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Choose a date"),
     start_time: z.string().regex(/^\d{2}:\d{2}/, "Start time required"),
     end_time: z.string().regex(/^\d{2}:\d{2}/, "End time required"),
-    hourly_rate: z.coerce.number({ invalid_type_error: "Enter a rate" }).gt(0, "Enter a rate").max(500),
+    hourly_rate: z.coerce
+      .number({ invalid_type_error: "Enter a rate" })
+      .gt(0, "Enter a rate")
+      .max(500),
     role_title: z.string().trim().min(2).max(80),
     min_experience_years: z.coerce.number().int().min(0).max(60),
     requirements: optionalText(1000),
