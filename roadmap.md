@@ -11,3 +11,9 @@
 - [ ] Deterministic match score (+ tests)
 - [ ] Optional AI shift-description parser (employer review only)
 - [ ] Head metadata, verification, commit
+
+## Recruitment Hub (in progress)
+- [ ] Apply database changes (draft saved in docs/recruitment-hub-draft.sql; not yet applied)
+- [ ] Admin Recruitment Hub screens: communities, prospects, drafts, funnel, opt-outs, rewards
+- [ ] AI drafting/suggestions (human approval before any post or contact)
+- [ ] Public opt-out page and signup source tracking
