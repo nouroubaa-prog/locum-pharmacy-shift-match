@@ -62,6 +62,57 @@ export type Database = {
           },
         ]
       }
+      conversations: {
+        Row: {
+          application_id: string
+          created_at: string
+          employer_id: string
+          employer_last_read_at: string | null
+          id: string
+          last_message_at: string | null
+          locum_id: string
+          locum_last_read_at: string | null
+          shift_id: string
+        }
+        Insert: {
+          application_id: string
+          created_at?: string
+          employer_id: string
+          employer_last_read_at?: string | null
+          id?: string
+          last_message_at?: string | null
+          locum_id: string
+          locum_last_read_at?: string | null
+          shift_id: string
+        }
+        Update: {
+          application_id?: string
+          created_at?: string
+          employer_id?: string
+          employer_last_read_at?: string | null
+          id?: string
+          last_message_at?: string | null
+          locum_id?: string
+          locum_last_read_at?: string | null
+          shift_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: true
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversations_shift_id_fkey"
+            columns: ["shift_id"]
+            isOneToOne: false
+            referencedRelation: "shifts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       locum_profiles: {
         Row: {
           available_days: number[]
@@ -126,6 +177,38 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body: string
+          conversation_id: string
+          created_at: string
+          id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
             referencedColumns: ["id"]
           },
         ]
@@ -256,9 +339,11 @@ export type Database = {
       reports: {
         Row: {
           admin_notes: string | null
+          conversation_id: string | null
           created_at: string
           details: string | null
           id: string
+          message_id: string | null
           reason: Database["public"]["Enums"]["report_reason"]
           reported_user_id: string | null
           reporter_id: string
@@ -269,9 +354,11 @@ export type Database = {
         }
         Insert: {
           admin_notes?: string | null
+          conversation_id?: string | null
           created_at?: string
           details?: string | null
           id?: string
+          message_id?: string | null
           reason: Database["public"]["Enums"]["report_reason"]
           reported_user_id?: string | null
           reporter_id: string
@@ -282,9 +369,11 @@ export type Database = {
         }
         Update: {
           admin_notes?: string | null
+          conversation_id?: string | null
           created_at?: string
           details?: string | null
           id?: string
+          message_id?: string | null
           reason?: Database["public"]["Enums"]["report_reason"]
           reported_user_id?: string | null
           reporter_id?: string
@@ -294,6 +383,20 @@ export type Database = {
           status?: Database["public"]["Enums"]["report_status"]
         }
         Relationships: [
+          {
+            foreignKeyName: "reports_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "reports_reporter_id_fkey"
             columns: ["reporter_id"]
@@ -513,14 +616,51 @@ export type Database = {
         Args: { _employer_id: string; _locum_id: string }
         Returns: boolean
       }
+      is_conversation_participant: {
+        Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_reported_conversation: {
+        Args: { _conversation_id: string }
+        Returns: boolean
+      }
+      mark_conversation_read: {
+        Args: { _conversation_id: string }
+        Returns: undefined
+      }
       mark_shift_filled: {
         Args: { _application_id?: string; _shift_id: string }
         Returns: undefined
       }
+      my_conversations: {
+        Args: { _conversation_id?: string }
+        Returns: {
+          application_id: string
+          application_status: Database["public"]["Enums"]["application_status"]
+          conversation_id: string
+          end_time: string
+          i_am_employer: boolean
+          last_message_at: string
+          last_message_body: string
+          last_message_mine: boolean
+          other_last_read_at: string
+          other_name: string
+          other_user_id: string
+          pharmacy_name: string
+          role_title: string
+          shift_date: string
+          shift_id: string
+          start_time: string
+          town: string
+          unread_count: number
+        }[]
+      }
+      my_unread_message_count: { Args: never; Returns: number }
       owns_shift: {
         Args: { _shift_id: string; _user_id: string }
         Returns: boolean
       }
+      start_conversation: { Args: { _application_id: string }; Returns: string }
     }
     Enums: {
       account_status: "active" | "suspended"

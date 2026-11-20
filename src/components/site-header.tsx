@@ -15,6 +15,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { Logo } from "./logo";
+import { useChatRealtime, useUnreadMessages } from "./chat/use-chat";
 
 type NavItem = { to: string; label: string };
 
@@ -37,6 +38,9 @@ export function SiteHeader() {
     },
   });
 
+  useChatRealtime(user?.id);
+  const unreadMessages = useUnreadMessages(user?.id);
+
   const items: NavItem[] = [{ to: "/shifts", label: "Find shifts" }];
   if (role === "employer") {
     items.push(
@@ -46,6 +50,10 @@ export function SiteHeader() {
   }
   if (role === "locum") {
     items.push({ to: "/locum", label: "Dashboard" }, { to: "/locum/profile", label: "My profile" });
+  }
+  if (user && (role || isAdmin)) {
+    const n = unreadMessages.data ?? 0;
+    items.push({ to: "/messages", label: n ? `Messages (${n > 9 ? "9+" : n})` : "Messages" });
   }
   if (isAdmin) items.push({ to: "/admin", label: "Admin" });
 
@@ -70,7 +78,7 @@ export function SiteHeader() {
                 to={i.to}
                 className={linkCls}
                 activeProps={{ className: activeCls }}
-                activeOptions={{ exact: i.to !== "/shifts" }}
+                activeOptions={{ exact: i.to !== "/shifts" && i.to !== "/messages" }}
               >
                 {i.label}
               </Link>

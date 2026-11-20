@@ -25,6 +25,8 @@ import { Route as AuthenticatedEmployerIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedEmployerPharmacyRouteImport } from './routes/_authenticated/employer.pharmacy'
 import { Route as AuthenticatedLocumIndexRouteImport } from './routes/_authenticated/locum.index'
 import { Route as AuthenticatedLocumProfileRouteImport } from './routes/_authenticated/locum.profile'
+import { Route as AuthenticatedMessagesIndexRouteImport } from './routes/_authenticated/messages.index'
+import { Route as AuthenticatedMessagesConversationIdRouteImport } from './routes/_authenticated/messages.$conversationId'
 import { Route as AuthenticatedEmployerShiftsNewRouteImport } from './routes/_authenticated/employer.shifts.new'
 
 const IndexRoute = IndexRouteImport.update({
@@ -110,6 +112,18 @@ const AuthenticatedLocumProfileRoute =
     path: '/locum/profile',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMessagesIndexRoute =
+  AuthenticatedMessagesIndexRouteImport.update({
+    id: '/messages/',
+    path: '/messages/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMessagesConversationIdRoute =
+  AuthenticatedMessagesConversationIdRouteImport.update({
+    id: '/messages/$conversationId',
+    path: '/messages/$conversationId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEmployerShiftsNewRoute =
   AuthenticatedEmployerShiftsNewRouteImport.update({
     id: '/employer/shifts/new',
@@ -131,8 +145,10 @@ export interface FileRoutesByFullPath {
   '/shifts/': typeof ShiftsIndexRoute
   '/employer/pharmacy': typeof AuthenticatedEmployerPharmacyRoute
   '/locum/profile': typeof AuthenticatedLocumProfileRoute
+  '/messages/$conversationId': typeof AuthenticatedMessagesConversationIdRoute
   '/employer/': typeof AuthenticatedEmployerIndexRoute
   '/locum/': typeof AuthenticatedLocumIndexRoute
+  '/messages/': typeof AuthenticatedMessagesIndexRoute
   '/employer/shifts/new': typeof AuthenticatedEmployerShiftsNewRoute
 }
 export interface FileRoutesByTo {
@@ -149,8 +165,10 @@ export interface FileRoutesByTo {
   '/shifts': typeof ShiftsIndexRoute
   '/employer/pharmacy': typeof AuthenticatedEmployerPharmacyRoute
   '/locum/profile': typeof AuthenticatedLocumProfileRoute
+  '/messages/$conversationId': typeof AuthenticatedMessagesConversationIdRoute
   '/employer': typeof AuthenticatedEmployerIndexRoute
   '/locum': typeof AuthenticatedLocumIndexRoute
+  '/messages': typeof AuthenticatedMessagesIndexRoute
   '/employer/shifts/new': typeof AuthenticatedEmployerShiftsNewRoute
 }
 export interface FileRoutesById {
@@ -169,8 +187,10 @@ export interface FileRoutesById {
   '/shifts/': typeof ShiftsIndexRoute
   '/_authenticated/employer/pharmacy': typeof AuthenticatedEmployerPharmacyRoute
   '/_authenticated/locum/profile': typeof AuthenticatedLocumProfileRoute
+  '/_authenticated/messages/$conversationId': typeof AuthenticatedMessagesConversationIdRoute
   '/_authenticated/employer/': typeof AuthenticatedEmployerIndexRoute
   '/_authenticated/locum/': typeof AuthenticatedLocumIndexRoute
+  '/_authenticated/messages/': typeof AuthenticatedMessagesIndexRoute
   '/_authenticated/employer/shifts/new': typeof AuthenticatedEmployerShiftsNewRoute
 }
 export interface FileRouteTypes {
@@ -189,8 +209,10 @@ export interface FileRouteTypes {
     | '/shifts/'
     | '/employer/pharmacy'
     | '/locum/profile'
+    | '/messages/$conversationId'
     | '/employer/'
     | '/locum/'
+    | '/messages/'
     | '/employer/shifts/new'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -207,8 +229,10 @@ export interface FileRouteTypes {
     | '/shifts'
     | '/employer/pharmacy'
     | '/locum/profile'
+    | '/messages/$conversationId'
     | '/employer'
     | '/locum'
+    | '/messages'
     | '/employer/shifts/new'
   id:
     | '__root__'
@@ -226,8 +250,10 @@ export interface FileRouteTypes {
     | '/shifts/'
     | '/_authenticated/employer/pharmacy'
     | '/_authenticated/locum/profile'
+    | '/_authenticated/messages/$conversationId'
     | '/_authenticated/employer/'
     | '/_authenticated/locum/'
+    | '/_authenticated/messages/'
     | '/_authenticated/employer/shifts/new'
   fileRoutesById: FileRoutesById
 }
@@ -356,6 +382,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLocumProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/messages/': {
+      id: '/_authenticated/messages/'
+      path: '/messages'
+      fullPath: '/messages/'
+      preLoaderRoute: typeof AuthenticatedMessagesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/messages/$conversationId': {
+      id: '/_authenticated/messages/$conversationId'
+      path: '/messages/$conversationId'
+      fullPath: '/messages/$conversationId'
+      preLoaderRoute: typeof AuthenticatedMessagesConversationIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/employer/shifts/new': {
       id: '/_authenticated/employer/shifts/new'
       path: '/employer/shifts/new'
@@ -373,8 +413,10 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedEmployerPharmacyRoute: typeof AuthenticatedEmployerPharmacyRoute
   AuthenticatedLocumProfileRoute: typeof AuthenticatedLocumProfileRoute
+  AuthenticatedMessagesConversationIdRoute: typeof AuthenticatedMessagesConversationIdRoute
   AuthenticatedEmployerIndexRoute: typeof AuthenticatedEmployerIndexRoute
   AuthenticatedLocumIndexRoute: typeof AuthenticatedLocumIndexRoute
+  AuthenticatedMessagesIndexRoute: typeof AuthenticatedMessagesIndexRoute
   AuthenticatedEmployerShiftsNewRoute: typeof AuthenticatedEmployerShiftsNewRoute
 }
 
@@ -385,8 +427,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedEmployerPharmacyRoute: AuthenticatedEmployerPharmacyRoute,
   AuthenticatedLocumProfileRoute: AuthenticatedLocumProfileRoute,
+  AuthenticatedMessagesConversationIdRoute:
+    AuthenticatedMessagesConversationIdRoute,
   AuthenticatedEmployerIndexRoute: AuthenticatedEmployerIndexRoute,
   AuthenticatedLocumIndexRoute: AuthenticatedLocumIndexRoute,
+  AuthenticatedMessagesIndexRoute: AuthenticatedMessagesIndexRoute,
   AuthenticatedEmployerShiftsNewRoute: AuthenticatedEmployerShiftsNewRoute,
 }
 

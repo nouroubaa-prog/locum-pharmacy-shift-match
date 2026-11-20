@@ -8,6 +8,8 @@ export function friendlyError(
   const e = err as { code?: string; message?: string };
   if (e.code === "23505") {
     if (e.message?.includes("applications")) return "You've already applied to this shift.";
+    if (e.message?.includes("reports_one_open_per_conversation"))
+      return "You've already reported this conversation. Our team will review it.";
     if (e.message?.includes("reports"))
       return "You've already reported this listing. Our team will review it.";
     return "That already exists.";
