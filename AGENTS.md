@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Application messaging entry points use the participant-scoped `my_conversations` RPC; never fetch arbitrary applicants or private contact details to populate chat summaries.

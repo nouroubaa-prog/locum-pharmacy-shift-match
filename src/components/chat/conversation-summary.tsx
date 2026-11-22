@@ -3,6 +3,7 @@ import { ApplicationStatusBadge } from "@/components/status-badge";
 import { formatDate, formatTime, relativeTime } from "@/lib/format";
 import type { ConversationRow } from "@/lib/chat";
 import { cn } from "@/lib/utils";
+import { canSendMessages } from "@/lib/chat";
 import { StartConversationButton } from "./start-conversation-button";
 
 export function shiftLabel(c: Pick<ConversationRow, "roleTitle" | "pharmacyName">) {
@@ -76,7 +77,9 @@ export function ConversationSummary({ c }: { c: ConversationRow }) {
       {body}
       <div className="flex items-center gap-2 sm:shrink-0">
         <ApplicationStatusBadge status={c.applicationStatus} />
-        <StartConversationButton applicationId={c.applicationId} label="Start chat" />
+        {canSendMessages(c.applicationStatus) && (
+          <StartConversationButton applicationId={c.applicationId} label="Start chat" />
+        )}
       </div>
     </div>
   );

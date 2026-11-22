@@ -1,14 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ComingNext } from "@/components/coming-next";
+import { PageHeader } from "@/components/states";
+import { ApplicationConversations } from "@/components/chat/application-conversations";
 
 export const Route = createFileRoute("/_authenticated/employer/")({
   head: () => ({
     meta: [{ title: "Employer dashboard — Locum4U" }, { name: "robots", content: "noindex" }],
   }),
   component: () => (
-    <ComingNext
-      title="Employer dashboard"
-      body="Your pharmacy profile, active shifts and applicant counts will appear here."
-    />
+    <div className="container-app max-w-3xl py-8">
+      <PageHeader title="Employer dashboard" />
+      <ApplicationConversations />
+    </div>
   ),
 });

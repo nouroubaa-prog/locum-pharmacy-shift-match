@@ -34,6 +34,7 @@ function ConversationPage() {
   const queryClient = useQueryClient();
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [messageLimit, setMessageLimit] = useState(200);
   const [report, setReport] = useState<{ open: boolean; messageId: string | null }>({
     open: false,
     messageId: null,
@@ -41,7 +42,7 @@ function ConversationPage() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const thread = useQuery({
-    queryKey: chatKeys.thread(conversationId),
+    queryKey: [...chatKeys.thread(conversationId), user?.id],
     enabled: !!user,
     refetchInterval: 15_000,
     queryFn: async () => {
@@ -55,8 +56,8 @@ function ConversationPage() {
   });
 
   const messages = useQuery({
-    queryKey: chatKeys.messages(conversationId),
-    enabled: !!user,
+    queryKey: [...chatKeys.messages(conversationId), user?.id, messageLimit],
+    enabled: !!user && !!thread.data,
     refetchInterval: 15_000,
     queryFn: async () => {
       const { data, error } = await supabase
@@ -64,26 +65,32 @@ function ConversationPage() {
         .select("id, sender_id, body, created_at")
         .eq("conversation_id", conversationId)
         .order("created_at", { ascending: false })
-        .limit(200);
+        .limit(messageLimit);
       if (error) throw error;
       return (data ?? []).reverse();
     },
   });
 
   const lastIncoming = messages.data?.filter((m) => m.sender_id !== user?.id).at(-1)?.id;
+  const userId = user?.id;
+  const hasThread = !!thread.data;
   useEffect(() => {
-    if (!user || !thread.data) return;
-    supabase.rpc("mark_conversation_read", { _conversation_id: conversationId }).then(() => {
-      queryClient.invalidateQueries({ queryKey: chatKeys.unread(user.id) });
-      queryClient.invalidateQueries({ queryKey: chatKeys.inbox(user.id) });
-    });
-  }, [conversationId, lastIncoming, user, thread.data, queryClient]);
+    if (!userId || !hasThread || document.visibilityState !== "visible") return;
+    supabase
+      .rpc("mark_conversation_read", { _conversation_id: conversationId })
+      .then(({ error }) => {
+        if (error) return;
+        queryClient.invalidateQueries({ queryKey: chatKeys.unread(userId) });
+        queryClient.invalidateQueries({ queryKey: chatKeys.inbox(userId) });
+      });
+  }, [conversationId, lastIncoming, userId, hasThread, queryClient]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ block: "end" });
   }, [messages.data?.length]);
 
   async function send() {
+    if (sending || !thread.data || !canSendMessages(thread.data.applicationStatus)) return;
     const parsed = messageSchema.safeParse({ body: draft });
     if (!parsed.success || !user) {
       toast.error(parsed.error?.issues[0]?.message ?? "Write a message first");
@@ -159,6 +166,15 @@ function ConversationPage() {
         aria-live="polite"
         className="my-3 min-h-[40vh] flex-1 space-y-3 overflow-y-auto"
       >
+        {messages.data?.length === messageLimit && (
+          <Button
+            variant="outline"
+            disabled={messages.isFetching}
+            onClick={() => setMessageLimit((limit) => limit + 200)}
+          >
+            Load earlier messages
+          </Button>
+        )}
         {messages.isLoading ? (
           <PageSpinner />
         ) : messages.isError ? (
@@ -181,7 +197,7 @@ function ConversationPage() {
                     }
                   >
                     {/* Rendered as plain text: no HTML is ever interpreted. */}
-                    <p className="whitespace-pre-wrap break-words text-sm">{m.body}</p>
+                    <p className="whitespace-pre-wrap text-sm [overflow-wrap:anywhere]">{m.body}</p>
                   </div>
                   <div
                     className={`mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground ${mine ? "justify-end" : ""}`}
@@ -198,13 +214,14 @@ function ConversationPage() {
                         </span>
                       ))}
                     {!mine && (
-                      <button
+                      <Button
                         type="button"
-                        className="underline-offset-2 hover:underline"
+                        variant="ghost"
+                        size="sm"
                         onClick={() => setReport({ open: true, messageId: m.id })}
                       >
                         Report
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -235,7 +252,7 @@ function ConversationPage() {
             className="min-h-[44px] resize-none"
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
                 e.preventDefault();
                 send();
               }

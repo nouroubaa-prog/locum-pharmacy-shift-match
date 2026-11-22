@@ -1,5 +1,10 @@
 # Locum4U roadmap
 
+## Current messaging verification
+- [ ] Integrate shift-linked conversations into shift details and both role dashboards
+- [ ] Verify participant privacy, persistence, reopening, and mobile/desktop messaging
+- [ ] Run tests/lint and inspect preview build results; document blockers
+
 - [ ] Design system, fonts, PWA manifest + icons
 - [ ] Database: profiles, roles, locum profiles, pharmacies, shifts, private shift contacts, applications, reports, notifications + RLS + demo seed
 - [ ] Auth: email/password, Google, Lovable; role choice + onboarding
