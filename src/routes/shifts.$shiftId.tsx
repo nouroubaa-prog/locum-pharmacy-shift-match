@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
+import { ApplyPanel } from "@/components/shifts/apply-panel";
 import { ApplicationConversations } from "@/components/chat/application-conversations";
 import { EmptyState, ErrorState, PageHeader, PageSpinner } from "@/components/states";
 import { formatDate, formatRate, formatTime } from "@/lib/format";
@@ -75,6 +76,7 @@ function ShiftDetails() {
           {shift.data.notes && (
             <p className="mt-3 whitespace-pre-wrap break-words">{shift.data.notes}</p>
           )}
+          <ApplyPanel shiftId={shiftId} />
         </>
       ) : (
         <EmptyState

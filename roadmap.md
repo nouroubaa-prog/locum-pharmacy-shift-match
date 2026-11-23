@@ -10,7 +10,7 @@
 - [ ] Auth: email/password, Google, Lovable; role choice + onboarding
 - [ ] Landing, privacy, terms pages
 - [ ] Employer: pharmacy profile, dashboard, create/edit/publish/cancel/fill shifts, applicants
-- [ ] Locum: profile, shift feed + filters, shift detail, apply, contact unlock, application history
+- [ ] Locum: profile (todo), shift feed; apply + contact unlock on shift detail DONE; + filters, shift detail, apply, contact unlock, application history
 - [ ] Admin moderation: reports, hide listings, suspend users
 - [ ] Notifications page
 - [ ] Deterministic match score (+ tests)
